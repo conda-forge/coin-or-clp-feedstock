@@ -1,0 +1,26 @@
+From 65a6942737ab1092f7c1c9e888290b8fd3cab805 Mon Sep 17 00:00:00 2001
+From: BastianZim <10774221+BastianZim@users.noreply.github.com>
+Date: Mon, 27 Sep 2021 16:48:48 +0200
+Subject: [PATCH] Patch-for-downstream
+
+---
+ Clp/clp.pc.in | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Clp/clp.pc.in b/Clp/clp.pc.in
+index e86b0504..c9946ba4 100644
+--- a/Clp/clp.pc.in
++++ b/Clp/clp.pc.in
+@@ -7,6 +7,7 @@ Name: CLP
+ Description: COIN-OR Linear Programming Solver
+ URL: https://projects.coin-or.org/Clp
+ Version: @PACKAGE_VERSION@
+-Libs: -L${libdir} -lClpSolver -lClp @CLPLIB_PCLIBS@
++Libs: -L${libdir} -lClpSolver -lClp 
++Libs.private: @CLPLIB_PCLIBS@
+ Cflags: -I${includedir}
+-Requires: @CLPLIB_PCREQUIRES@
++Requires.private: @CLPLIB_PCREQUIRES@
+-- 
+2.30.1 (Apple Git-130)
+
