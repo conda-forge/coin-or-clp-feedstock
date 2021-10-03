@@ -10,9 +10,10 @@ source:
     sha256: ef412cde00cb1313d9041115a700d8d59d4b8b8b5e4dde43e9deb5108fcfbea8
     patches:
        - 0001-Patch-for-downstream.patch
+       - 0001-Add-second-downstream-patch.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
