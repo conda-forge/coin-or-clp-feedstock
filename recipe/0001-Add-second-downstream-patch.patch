@@ -4,8 +4,8 @@ Date: Sun, 3 Oct 2021 14:50:44 +0200
 Subject: [PATCH] Add second downstream patch
 
 ---
- Clp/src/OsiClp/osi-clp.pc.in | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ Clp/src/OsiClp/osi-clp.pc.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletions(-)
 
 diff --git a/Clp/src/OsiClp/osi-clp.pc.in b/Clp/src/OsiClp/osi-clp.pc.in
 index aeb04e93..af1114f7 100644
@@ -19,8 +19,7 @@ index aeb04e93..af1114f7 100644
 +Libs: -L${libdir} -lOsiClp
 +Libs.private: @OSICLPLIB_PCLIBS@
  Cflags: -I${includedir}
--Requires: clp @OSICLPLIB_PCREQUIRES@
-+Requires.private: clp @OSICLPLIB_PCREQUIRES@
+ Requires: clp @OSICLPLIB_PCREQUIRES@
 -- 
 2.33.0
 
