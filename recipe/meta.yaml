@@ -7,7 +7,7 @@ package:
 
 source:
     url: https://github.com/coin-or/Clp/archive/releases/{{ version }}.tar.gz
-    sha256: afff465b1620cfcbb7b7c17b5d331d412039650ff471c4160c7eb24ae01284c9
+    sha256: ef412cde00cb1313d9041115a700d8d59d4b8b8b5e4dde43e9deb5108fcfbea8
     patches:
        - 0001-Patch-for-downstream.patch
        - 0001-Add-second-downstream-patch.patch
