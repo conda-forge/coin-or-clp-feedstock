@@ -19,8 +19,8 @@ index e86b0504..c9946ba4 100644
 +Libs: -L${libdir} -lClpSolver -lClp 
 +Libs.private: @CLPLIB_PCLIBS@
  Cflags: -I${includedir}
- -Requires: @CLPLIB_PCREQUIRES@
- +Requires.private: @CLPLIB_PCREQUIRES@
+-Requires: @CLPLIB_PCREQUIRES@
++Requires.private: @CLPLIB_PCREQUIRES@
 -- 
 2.30.1 (Apple Git-130)
 
