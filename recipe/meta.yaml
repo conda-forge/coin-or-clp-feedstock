@@ -1,5 +1,5 @@
 {% set name = "coin-or-clp" %}
-{% set version = "1.17.6" %}
+{% set version = "1.17.4" %}
 
 package:
   name: {{ name|lower }}
