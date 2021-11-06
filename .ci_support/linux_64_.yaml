@@ -10,6 +10,10 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+coin_or_osi:
+- '0.108'
+coin_or_utils:
+- '2.11'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
