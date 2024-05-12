@@ -1,5 +1,5 @@
 {% set name = "coin-or-clp" %}
-{% set version = "1.17.8" %}
+{% set version = "1.17.9" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/coin-or/Clp/archive/releases/{{ version }}.tar.gz
-  sha256: f9931b5ba44f0daf445c6b48fc2c250dc12e667e59ace8ea7b025f158fe31556
+  sha256: b02109be54e2c9c6babc9480c242b2c3c7499368cfca8c0430f74782a694a49f
   patches:
     - 0001-Patch-for-downstream.patch
     - 0001-Add-second-downstream-patch.patch
