@@ -10,11 +10,9 @@ source:
   sha256: 0d79ece896cdaa4a3855c37f1c28e6c26285f74d45f635046ca0b6d68a509885
   patches:
     - 0001-Patch-for-downstream.patch
-    - 0001-Add-second-downstream-patch.patch
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 3
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
 
@@ -22,23 +20,27 @@ requirements:
   build:
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - pkg-config
+    - {{ compiler('fortran') }}  # [unix]
+    - pkg-config  # [unix]
     - make  # [unix]
+    - m2-make  # [win]
+    - m2-pkg-config  # [win]
+    - m2-grep  # [win]
+    - m2-sed  # [win]
+    - m2-bash  # [win]
+    - m2-base  # [win]
   host:
     - coin-or-utils
     - coin-or-osi
-    - libblas
+    - blas-devel
+    - libblas  # [unix]
     - libcblas
     - liblapack
-    - readline  # [unix]
+    - liblapacke  # [unix]
     - zlib
     - bzip2
-    - ncurses
-  run:
-    - ncurses
   run_constrained:
     - coincbc * *_metapackage
 
@@ -71,3 +73,4 @@ extra:
   recipe-maintainers:
     - wolfv
     - tkralphs
+    - jschueller
