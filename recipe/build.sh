@@ -31,6 +31,7 @@ export OPENBLAS_NUM_THREADS=1
   --exec-prefix="${USE_PREFIX}" \
   --with-blas-lib="${BLAS_LIB}" \
   --with-lapack-lib="${LAPACK_LIB}" \
+  --disable-pkg-config \
   ${EXTRA_FLAGS} || cat Clp/config.log
 
 make -j "${CPU_COUNT}"
