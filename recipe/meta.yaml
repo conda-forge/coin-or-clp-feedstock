@@ -30,10 +30,11 @@ requirements:
   host:
     - coin-or-utils
     - coin-or-osi
-    - libblas
+    - blas-devel
+    - libblas  # [unix]
     - libcblas
     - liblapack
-    - readline  # [unix]
+    - liblapacke  # [unix]
     - zlib
     - bzip2
     - ncurses
