@@ -39,7 +39,7 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke  # [unix]
-    - mkl-static
+    - mkl-static  # [win]
     - zlib
     - bzip2
   run_constrained:
@@ -47,10 +47,12 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/lib/libClp${SHLIB_EXT}
-    - test -f $PREFIX/lib/libOsiClp${SHLIB_EXT}
-    - test -f $PREFIX/include/coin/ClpGubDynamicMatrix.hpp
-    - test -f $PREFIX/include/coin/OsiClpSolverInterface.hpp
+    - test -f $PREFIX/lib/libClp${SHLIB_EXT}                    # [unix]
+    - test -f $PREFIX/lib/libOsiClp${SHLIB_EXT}                 # [unix]
+    - test -f $PREFIX/include/coin/ClpGubDynamicMatrix.hpp      # [unix]
+    - test -f $PREFIX/include/coin/OsiClpSolverInterface.hpp    # [unix]
+    - if not exist %LIBRARY_LIB%/libClp.lib exit 1              # [win]
+    - if not exist %LIBRARY_INC%/coin/CoinSort.hpp exit 1       # [win]
     - echo ? | clp
 
 about:
