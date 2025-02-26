@@ -16,7 +16,7 @@ if [[ "${target_platform}" == win-* ]]; then
   EXTRA_FLAGS=( --enable-msvc ) 
 else
   # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
-  cp $BUILD_PREFIX/share/gnuconfig/config.* ./Osi 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./Clp 
   cp $BUILD_PREFIX/share/gnuconfig/config.* .
   COINUTLS_LIB=()
   COINUTILS_INC=()
@@ -32,7 +32,7 @@ fi
   "${COINUTILS_INC[@]}" \
   "${OSI_LIB[@]}" \
   "${OSI_INC[@]}" \
-  "${EXTRA_FLAGS[@]}" || cat Osi/config.log
+  "${EXTRA_FLAGS[@]}" || cat Clp/config.log
 
 make -j "${CPU_COUNT}"
 
