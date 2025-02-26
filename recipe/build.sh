@@ -9,27 +9,30 @@ else
 fi
 
 if [[ "${target_platform}" == win-* ]]; then
-  EXTRA_FLAGS=( --enable-msvc --with-coinutils-lib='${LIBRARY_PREFIX}/lib/mkl_intel_ilp64.lib ${LIBRARY_PREFIX}/lib/mkl_sequential.lib ${LIBRARY_PREFIX}/lib/mkl_core.lib ${LIBRARY_PREFIX}/lib/libCoinUtils.lib' --with-coinutils-incdir=\${LIBRARY_PREFIX_COIN} --with-osi-lib=${LIBRARY_PREFIX}/lib/libOsi.lib --with-osi-incdir=\${LIBRARY_PREFIX_COIN} )
-  BLAS_LIB="${LIBRARY_PREFIX}/lib/cblas.lib"
-  LAPACK_LIB="${LIBRARY_PREFIX}/lib/lapack.lib"
+  COINUTLS_LIB=( --with-coinutils-lib='${LIBRARY_PREFIX}/lib/mkl_intel_ilp64.lib ${LIBRARY_PREFIX}/lib/mkl_sequential.lib ${LIBRARY_PREFIX}/lib/mkl_core.lib ${LIBRARY_PREFIX}/lib/libCoinUtils.lib' )
+  COINUTILS_INC=( --with-coinutils-incdir='${LIBRARY_PREFIX_COIN}' )
+  OSI_LIB=( --with-osi-lib='${LIBRARY_PREFIX}/lib/libOsi.lib' )
+  OSI_INC=( --with-coinutils-incdir='${LIBRARY_PREFIX_COIN}' )
+  EXTRA_FLAGS=( --enable-msvc ) 
 else
-# Get an updated config.sub and config.guess
+  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./Osi 
   cp $BUILD_PREFIX/share/gnuconfig/config.* .
-  cp $BUILD_PREFIX/share/gnuconfig/config.* ./Clp
-  BLAS_LIB="-L${PREFIX}/lib -lblas"
-  LAPACK_LIB="-L${PREFIX}/lib -llapack"
+  COINUTLS_LIB=()
+  COINUTILS_INC=()
+  OSI_LIB=()
+  OSI_INC=()
+  EXTRA_FLAGS=()
 fi
-
-# Use only 1 thread with OpenBLAS to avoid timeouts on CIs.
-# This should have no other affect on the build. A user
-# should still be able to set this (or not) to a different
-# value at run-time to get the expected amount of parallelism.
-export OPENBLAS_NUM_THREADS=1
 
 ./configure \
   --prefix="${USE_PREFIX}" \
   --exec-prefix="${USE_PREFIX}" \
-  "${EXTRA_FLAGS[@]}" || cat Clp/config.log
+  "${COINUTILS_LIB[@]}" \
+  "${COINUTILS_INC[@]}" \
+  "${OSI_LIB[@]}" \
+  "${OSI_INC[@]}" \
+  "${EXTRA_FLAGS[@]}" || cat Osi/config.log
 
 make -j "${CPU_COUNT}"
 
