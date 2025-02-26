@@ -1,33 +1,44 @@
 #!/usr/bin/env bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./Clp
 set -e
 
-UNAME="$(uname)"
-export CFLAGS="${CFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS} -O3"
-export CXXFLAGS="${CXXFLAGS//-std=c++17/-std=c++11}"
-
-if [ "${UNAME}" == "Linux" ]; then
-    export FLIBS="-lgcc_s -lgcc -lstdc++ -lm"
+# LIBRARY_PREFIX will only be available on Windows
+if [ ! -z ${LIBRARY_PREFIX+x} ]; then
+    USE_PREFIX=$LIBRARY_PREFIX
+else
+    USE_PREFIX=$PREFIX
 fi
 
-# Use only 1 thread with OpenBLAS to avoid timeouts on CIs.
-# This should have no other affect on the build. A user
-# should still be able to set this (or not) to a different
-# value at run-time to get the expected amount of parallelism.
-export OPENBLAS_NUM_THREADS=1
-
-WITH_BLAS_LIB="-L${PREFIX}/lib -lblas"
-WITH_LAPACK_LIB="-L${PREFIX}/lib -llapack"
+if [[ "${target_platform}" == win-* ]]; then
+  COINUTILS_LIB=( --with-coinutils-lib='${LIBRARY_PREFIX}/lib/mkl_intel_ilp64.lib ${LIBRARY_PREFIX}/lib/mkl_sequential.lib ${LIBRARY_PREFIX}/lib/mkl_core.lib ${LIBRARY_PREFIX}/lib/libCoinUtils.lib' )
+  COINUTILS_INC=( --with-coinutils-incdir='${LIBRARY_PREFIX_COIN}' )
+  OSI_LIB=( --with-osi-lib='${LIBRARY_PREFIX}/lib/libOsi.lib' )
+  OSI_INC=( --with-osi-incdir='${LIBRARY_PREFIX_COIN}' )
+  EXTRA_FLAGS=( --enable-msvc ) 
+else
+  # Get an updated config.sub and config.guess (for mac arm and lnx aarch64)
+  cp $BUILD_PREFIX/share/gnuconfig/config.* ./Clp 
+  cp $BUILD_PREFIX/share/gnuconfig/config.* .
+  COINUTLS_LIB=()
+  COINUTILS_INC=()
+  OSI_LIB=()
+  OSI_INC=()
+  EXTRA_FLAGS=()
+fi
 
 ./configure \
-    --prefix="${PREFIX}" \
-    --exec-prefix="${PREFIX}" \
-    --with-blas-lib="${WITH_BLAS_LIB}" \
-    --with-lapack-lib="${WITH_LAPACK_LIB}" \
-    --enable-gnu-packages
+  --prefix="${USE_PREFIX}" \
+  --exec-prefix="${USE_PREFIX}" \
+  "${COINUTILS_LIB[@]}" \
+  "${COINUTILS_INC[@]}" \
+  "${OSI_LIB[@]}" \
+  "${OSI_INC[@]}" \
+  "${EXTRA_FLAGS[@]}" || cat Clp/config.log
 
 make -j "${CPU_COUNT}"
+
+# Tests are broken without Data folder: https://github.com/coin-or/Osi/issues/184
+#if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+#  make test
+#fi
+
 make install
