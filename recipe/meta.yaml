@@ -53,7 +53,7 @@ test:
     - if not exist %LIBRARY_LIB%/libClp.lib exit 1              # [win]
     - if not exist %LIBRARY_INC%/coin/CoinSort.hpp exit 1       # [win]
     - echo ? | clp
-    - strings %LIBRARY_LIB%\\libCoinUtils.lib | findstr /C:"RuntimeLibrary=MD"  # [win]
+    - strings %LIBRARY_LIB%\\libClp.lib | findstr /C:"RuntimeLibrary=MD"  # [win]
   requires:
     - binutils  # [win]
 
