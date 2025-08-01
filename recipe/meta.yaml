@@ -15,7 +15,6 @@ build:
   number: 3
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
-    - mkl  # [win]
 
 requirements:
   build:
