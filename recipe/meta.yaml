@@ -34,6 +34,7 @@ requirements:
   host:
     - coin-or-utils
     - coin-or-osi
+    - mkl-devel  # [win]
     - zlib
     - bzip2
   run_constrained:
