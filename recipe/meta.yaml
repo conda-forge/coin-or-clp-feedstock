@@ -34,7 +34,12 @@ requirements:
   host:
     - coin-or-utils
     - coin-or-osi
-    - mkl-devel
+    - blas-devel
+    - libblas  # [unix]
+    - libcblas
+    - liblapack
+    - liblapacke  # [unix]
+    - mkl-devel  # [win]
     - zlib
     - bzip2
   run_constrained:
