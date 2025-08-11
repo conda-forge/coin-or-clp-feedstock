@@ -32,11 +32,10 @@ requirements:
     - m2-bash  # [win]
     - m2-base  # [win]
   host:
-    - coin-or-utils  # [unix]
-    - coin-or-osi  # [linux]
+    - coin-or-utils
+    - coin-or-osi
     - blas-devel
     - mkl-devel  # [win]
-    - bzip2
   run_constrained:
     - coincbc * *_metapackage
 
