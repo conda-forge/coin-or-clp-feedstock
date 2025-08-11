@@ -22,7 +22,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}  # [unix]
     - pkg-config  # [unix]
     - make  # [unix]
     - m2-make  # [win]
