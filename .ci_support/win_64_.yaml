@@ -8,19 +8,9 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-coin_or_osi:
-- '0.108'
-coin_or_utils:
-- '2.11'
 cxx_compiler:
 - vs2022
-libcblas:
-- 3.9.* *netlib
-liblapack:
-- 3.9.* *netlib
-mkl:
+mkl_devel:
 - '2024'
 target_platform:
 - win-64
-zlib:
-- '1'
