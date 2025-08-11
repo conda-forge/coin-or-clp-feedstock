@@ -12,7 +12,7 @@ source:
     - 0001-Patch-for-downstream.patch
 
 build:
-  number: 3
+  number: 4
   run_exports:
     - {{ pin_subpackage(name, min_pin='x.x', max_pin='x.x') }}
 
@@ -32,15 +32,10 @@ requirements:
     - m2-bash  # [win]
     - m2-base  # [win]
   host:
-    - coin-or-utils
-    - coin-or-osi
+    - coin-or-utils  # [unix]
+    - coin-or-osi  # [linux]
     - blas-devel
-    - libblas  # [unix]
-    - libcblas
-    - liblapack
-    - liblapacke  # [unix]
     - mkl-devel  # [win]
-    - zlib
     - bzip2
   run_constrained:
     - coincbc * *_metapackage
